@@ -7,9 +7,9 @@ import javax.validation.constraints.NotBlank;
 
 public class Product extends BaseEntity {
 
-    @NotBlank(message = "Reference product is mandatory")
+    @NotBlank(message = "Reference product is mandatory !")
     private String ref;
-    @NotBlank(message = "Title product is mandatory")
+    @NotBlank(message = "Title product is mandatory !")
     private String title;
     private String description;
     private Integer stockQuantity;

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 @Embeddable
-public class Price {
+class Price {
 
     private BigDecimal amount;
     private Currency currency;
