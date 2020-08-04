@@ -20,6 +20,7 @@ public class DeleteCategoryImpl implements DeleteCategory {
         this.existsCategory = existsCategory;
     }
 
+    @Override
     public void byId(Integer id) throws ResourceNotFoundException {
         if (!existsCategory.byId(id)) {
             throw new ResourceNotFoundException(Category.class.getSimpleName(), id);

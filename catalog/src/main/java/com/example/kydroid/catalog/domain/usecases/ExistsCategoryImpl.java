@@ -15,6 +15,7 @@ public class ExistsCategoryImpl implements ExistsCategory {
         this.categoryRepository = categoryRepository;
     }
 
+    @Override
     public boolean byId(Integer id) {
         return categoryRepository.existsById(id);
     }
