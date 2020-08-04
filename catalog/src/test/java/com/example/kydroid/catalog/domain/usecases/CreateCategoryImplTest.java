@@ -1,10 +1,9 @@
-package com.example.kydroid.catalog.domain.ports.input;
+package com.example.kydroid.catalog.domain.usecases;
 
 import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceCreationConflictException;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceCreationFailedException;
 import com.example.kydroid.catalog.domain.ports.output.CategoryRepository;
-import com.example.kydroid.catalog.domain.usecases.CreateCategoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +15,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CreateCategoryTest {
+class CreateCategoryImplTest {
     @Mock
     private CategoryRepository categoryRepository;
 
