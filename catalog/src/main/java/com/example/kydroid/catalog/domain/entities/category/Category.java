@@ -10,6 +10,9 @@ public class Category extends BaseEntity {
     private String title;
     private String description;
 
+    public Category() {
+    }
+
     public Category(String title) {
         this.title = title;
     }
