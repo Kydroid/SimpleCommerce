@@ -2,8 +2,10 @@ package com.example.kydroid.catalog.domain.entities.category;
 
 import com.example.kydroid.catalog.domain.entities.common.BaseEntity;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 
+@Entity
 public class Category extends BaseEntity {
 
     @NotBlank(message = "Title category is mandatory !")

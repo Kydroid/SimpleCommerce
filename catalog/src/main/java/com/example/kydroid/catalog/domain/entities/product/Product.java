@@ -3,8 +3,10 @@ package com.example.kydroid.catalog.domain.entities.product;
 import com.example.kydroid.catalog.domain.entities.common.BaseEntity;
 
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 
+@Entity
 public class Product extends BaseEntity {
 
     @NotBlank(message = "Reference product is mandatory !")
@@ -15,6 +17,9 @@ public class Product extends BaseEntity {
     private Integer stockQuantity;
     @Embedded
     private Price price;
+
+    public Product() {
+    }
 
     public Product(String ref, String title) {
         this.ref = ref;
