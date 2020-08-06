@@ -1,9 +1,12 @@
 package com.example.kydroid.catalog.domain.entities.product;
 
+import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.common.BaseEntity;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -16,7 +19,9 @@ public class Product extends BaseEntity {
     private String description;
     private Integer stockQuantity;
     @Embedded
-    private Price price;
+    private Money money;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
     public Product() {
     }
@@ -50,12 +55,12 @@ public class Product extends BaseEntity {
         this.description = description;
     }
 
-    public Price getPrice() {
-        return price;
+    public Money getMoney() {
+        return money;
     }
 
-    public void setPrice(Price price) {
-        this.price = price;
+    public void setMoney(Money money) {
+        this.money = money;
     }
 
     public Integer getStockQuantity() {
@@ -64,5 +69,13 @@ public class Product extends BaseEntity {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.kydroid.catalog.domain.entities.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ public class BaseEntity {
         this.id = id;
     }
 
+    @JsonIgnore
     public boolean isAlreadyPersisted() {
         return id != null;
     }
