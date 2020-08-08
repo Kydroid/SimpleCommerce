@@ -1,8 +1,9 @@
-package com.example.kydroid.catalog.domain.ports.output;
+package com.example.kydroid.catalog.domain.usecases;
 
 import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceNotFoundException;
 import com.example.kydroid.catalog.domain.ports.input.FindCategory;
+import com.example.kydroid.catalog.domain.ports.output.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

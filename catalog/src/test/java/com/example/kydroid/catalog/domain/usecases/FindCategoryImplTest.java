@@ -3,7 +3,6 @@ package com.example.kydroid.catalog.domain.usecases;
 import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceNotFoundException;
 import com.example.kydroid.catalog.domain.ports.output.CategoryRepository;
-import com.example.kydroid.catalog.domain.ports.output.FindCategoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
