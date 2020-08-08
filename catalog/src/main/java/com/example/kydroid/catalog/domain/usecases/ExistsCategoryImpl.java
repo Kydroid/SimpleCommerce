@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExistsCategoryImpl implements ExistsCategory {
+class ExistsCategoryImpl implements ExistsCategory {
 
     private final CategoryRepository categoryRepository;
 

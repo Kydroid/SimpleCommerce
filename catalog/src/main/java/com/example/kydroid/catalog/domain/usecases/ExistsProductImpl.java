@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExistsProductImpl implements ExistsProduct {
+class ExistsProductImpl implements ExistsProduct {
 
     private final ProductRepository productRepository;
 

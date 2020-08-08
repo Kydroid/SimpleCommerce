@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FindCategoryImpl implements FindCategory {
+class FindCategoryImpl implements FindCategory {
 
     private final CategoryRepository categoryRepository;
 

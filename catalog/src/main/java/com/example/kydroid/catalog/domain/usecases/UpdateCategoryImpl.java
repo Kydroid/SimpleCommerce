@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UpdateCategoryImpl implements UpdateCategory {
+class UpdateCategoryImpl implements UpdateCategory {
 
     private final CategoryRepository categoryRepository;
     private final ExistsCategory existsCategory;
