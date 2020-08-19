@@ -5,6 +5,8 @@ import com.example.kydroid.catalog.domain.entities.product.Product;
 import com.example.kydroid.catalog.domain.ports.input.FindProduct;
 import com.example.kydroid.catalog.domain.ports.output.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,12 @@ class FindProductImpl implements FindProduct {
     @Override
     public List<Product> all() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> all(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAll(pageable).getContent();
     }
 
     @Override

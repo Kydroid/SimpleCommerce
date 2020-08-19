@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @Api(tags = "API Product v1.0")
 @CrossOrigin
@@ -33,6 +34,13 @@ public class ProductController {
         this.deleteProduct = deleteProduct;
         this.findProduct = findProduct;
         this.updateProduct = updateProduct;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProductsByPage(@RequestParam(required = false, defaultValue = "0") Integer page,
+                                                              @RequestParam(required = false, defaultValue = "10") Integer size) {
+        List<Product> productsFounded = findProduct.all(page, size);
+        return ResponseEntity.ok(productsFounded);
     }
 
     @GetMapping("{productId}")
