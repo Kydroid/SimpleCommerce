@@ -9,6 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,17 +21,15 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class FindProductImplTest {
 
-    @Mock
-    private ProductRepository productRepository;
-
     @InjectMocks
     FindProductImpl findProductImpl;
-
+    @Mock
+    private ProductRepository productRepository;
     private List<Product> products;
     private Product product1;
     private Product product2;
@@ -67,6 +69,38 @@ class FindProductImplTest {
     }
 
     @Test
+    void returnAllProductsPaginate_whenFindAllProductsPageable() {
+        int page = 1;
+        int pageSize = 10;
+        Page<Product> pagedProducts = new PageImpl(products);
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+        when(productRepository.findAll(pageable))
+                .thenReturn(pagedProducts);
+
+        List<Product> productsFounded = findProductImpl.all(page, pageSize);
+        assertNotNull(productsFounded);
+        assertEquals(3, productsFounded.size());
+        verify(productRepository, times(1)).findAll(pageable);
+    }
+
+    @Test
+    void throwIllegalArgumentException_whenFindAllProductsPageableWithBadArgumentPageSize() {
+        int page = 1;
+        int pageSize = 0;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            findProductImpl.all(page, pageSize);
+        });
+    }
+
+    @Test
+    void returnTotalNumberOfProducts_whenCountAllProducts() {
+        findProductImpl.allCount();
+        verify(productRepository, times(1)).count();
+    }
+
+    @Test
     void returnProductById_whenFindProductByIdValid() throws ResourceNotFoundException {
         Integer productIdToFind = product1.getId();
 
@@ -85,5 +119,39 @@ class FindProductImplTest {
 
         assertThrows(ResourceNotFoundException.class,
                 () -> findProductImpl.byId(0));
+    }
+
+    @Test
+    void returnProductsByTitlePaginate_whenFindProductsByTitlePageable() {
+        int page = 1;
+        int pageSize = 10;
+        String titleKeyword = "product1";
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+        when(productRepository.findByTitleContainingIgnoreCase(titleKeyword, pageable))
+                .thenReturn(Arrays.asList(product1));
+
+        List<Product> productsFounded = findProductImpl.byTitleContainingIgnoreCase(page, pageSize, titleKeyword);
+        assertNotNull(productsFounded);
+        assertEquals(1, productsFounded.size());
+        verify(productRepository, times(1)).findByTitleContainingIgnoreCase(titleKeyword, pageable);
+    }
+
+    @Test
+    void throwIllegalArgumentException_whenFindProductsByTitlePageableWithBadArgumentPageSize() {
+        int page = 1;
+        int pageSize = 1000000;
+        String titleKeyword = "product1";
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            findProductImpl.byTitleContainingIgnoreCase(page, pageSize, titleKeyword);
+        });
+    }
+
+    @Test
+    void returnTotalNumberOfProductsByTitle_whenCountProductsByTitleContainingIgnoreCase() {
+        String titleKeyword = "product1";
+        findProductImpl.byTitleContainingIgnoreCaseCount(titleKeyword);
+        verify(productRepository, times(1)).countByTitleContainingIgnoreCase(titleKeyword);
     }
 }

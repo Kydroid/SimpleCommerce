@@ -10,6 +10,7 @@ import com.example.kydroid.catalog.domain.ports.input.FindProduct;
 import com.example.kydroid.catalog.domain.ports.input.UpdateProduct;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 @Api(tags = "API Product v1.0")
-@CrossOrigin
+@CrossOrigin(exposedHeaders = {"X-Total-Count"})
 @RestController
 @RequestMapping("products")
 public class ProductController {
@@ -37,10 +38,32 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProductsByPage(@RequestParam(required = false, defaultValue = "0") Integer page,
-                                                              @RequestParam(required = false, defaultValue = "10") Integer size) {
-        List<Product> productsFounded = findProduct.all(page, size);
-        return ResponseEntity.ok(productsFounded);
+    public ResponseEntity<List<Product>> getAllProductsPaginate(@RequestParam(required = false, defaultValue = "0") Integer page,
+                                                                @RequestParam(required = false, defaultValue = "10", value = "pagesize") Integer pageSize) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (page == 0) {
+            Long productsTotalCount = findProduct.allCount();
+            responseHeaders.set("X-Total-Count", productsTotalCount.toString());
+        }
+        List<Product> productsFounded = findProduct.all(page, pageSize);
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(productsFounded);
+    }
+
+    @GetMapping(params = "title")
+    public ResponseEntity<List<Product>> getAllProductsByTitlePaginate(@RequestParam(required = false, defaultValue = "0") Integer page,
+                                                                       @RequestParam(required = false, value = "pagesize", defaultValue = "10") Integer pageSize,
+                                                                       @RequestParam(required = true) String title) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (page == 0) {
+            Long productsTotalCount = findProduct.byTitleContainingIgnoreCaseCount(title);
+            responseHeaders.set("X-Total-Count", productsTotalCount.toString());
+        }
+        List<Product> productsFounded = findProduct.byTitleContainingIgnoreCase(page, pageSize, title);
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(productsFounded);
     }
 
     @GetMapping("{productId}")

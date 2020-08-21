@@ -8,7 +8,13 @@ import java.util.List;
 public interface FindProduct {
     List<Product> all();
 
-    List<Product> all(Integer offset, Integer limit);
+    List<Product> all(Integer page, Integer pageSize);
+
+    Long allCount();
 
     Product byId(Integer productId) throws ResourceNotFoundException;
+
+    List<Product> byTitleContainingIgnoreCase(Integer page, Integer pageSize, String title);
+
+    Long byTitleContainingIgnoreCaseCount(String title);
 }
