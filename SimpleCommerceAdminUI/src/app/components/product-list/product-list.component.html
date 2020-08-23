@@ -1,0 +1,124 @@
+<div class="container-fluid">
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Product list</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="dataTable_length"><label>Show
+                <select [(ngModel)]="pageSize" (change)="changePageSize()"
+                        name="dataTable_length"
+                        aria-controls="dataTable"
+                        class="custom-select custom-select-sm form-control form-control-sm">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                products</label></div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div id="dataTable_filter" class="dataTables_filter">
+                <label>Search:
+                  <input (input)="onSearchProductsChange()" #searchProductsInput type="search"
+                         class="form-control form-control-sm"
+                         placeholder=""
+                         aria-controls="dataTable"></label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                     aria-describedby="dataTable_info" style="width: 100%;">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                      style="width: 164.006px;">Ref
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Position: activate to sort column ascending" style="width: 250.006px;">Title
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Position: activate to sort column ascending" style="width: 250.006px;">Description
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Office: activate to sort column ascending" style="width: 117.006px;">Stock Quantity
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Salary: activate to sort column ascending" style="width: 100.006px;">Price
+                  </th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th rowspan="1" colspan="1">Ref</th>
+                  <th rowspan="1" colspan="1">Title</th>
+                  <th rowspan="1" colspan="1">Description</th>
+                  <th rowspan="1" colspan="1">Stock Quantity</th>
+                  <th rowspan="1" colspan="1">Price</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr *ngIf="!products.length">
+                  <td class="sorting_1 text-center" colspan="5">No product</td>
+                </tr>
+                <tr *ngFor="let product of products" role="row" class="odd">
+                  <td class="sorting_1">#{{ product.id }} - {{ product.ref }}</td>
+                  <td>{{ product.title }}</td>
+                  <td>{{ product.description }}</td>
+                  <td>{{ product.stockQuantity }}</td>
+                  <td>{{ product.money.amount | currency: product.money.currency }}</td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-5">
+              <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                Showing {{ getShowingProductsStart() }} to {{ getShowingProductsEnd() }} of {{ productsTotalCount }}
+                <span [ngPlural]="productsTotalCount">
+                  <ng-template ngPluralCase="=0">product</ng-template>
+                  <ng-template ngPluralCase="other">products</ng-template>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-7">
+              <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                <ul class="pagination">
+                  <li [ngClass]="{'disabled': currentPage <= 1}" class="paginate_button page-item previous"
+                      id="dataTable_previous">
+                    <a (click)="previousPage()"
+                       aria-controls="dataTable"
+                       data-dt-idx="0"
+                       tabindex="0"
+                       class="page-link">Previous</a>
+                  </li>
+                  <li *ngFor="let pageNumber of getPageRange()" [ngClass]="{'active': pageNumber == currentPage}"
+                      class="paginate_button page-item">
+                    <a (click)="changePage(pageNumber)" aria-controls="dataTable"
+                       data-dt-idx="{{ pageNumber }}"
+                       tabindex="0" class="page-link">{{ pageNumber }}</a></li>
+                  <li [ngClass]="{'disabled': currentPage >= numberOfPages}" class="paginate_button page-item next"
+                      id="dataTable_next">
+                    <a (click)="nextPage()" aria-controls="dataTable"
+                       data-dt-idx="7" tabindex="0"
+                       class="page-link">Next</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

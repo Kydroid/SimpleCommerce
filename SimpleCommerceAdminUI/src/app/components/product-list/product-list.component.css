@@ -1,0 +1,30 @@
+.text-gray-800 {
+  color: #5a5c69 !important;
+}
+
+.table-responsive {
+  overflow-x: inherit;
+}
+
+div.dataTables_wrapper div.dataTables_length label {
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+  font-weight: normal;
+  white-space: nowrap;
+  text-align: left;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-left: 0.5em;
+  display: inline-block;
+  width: auto;
+}
