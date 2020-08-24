@@ -28,3 +28,8 @@ div.dataTables_wrapper div.dataTables_filter input {
   display: inline-block;
   width: auto;
 }
+
+.cell-fit-content {
+  width: 1px;
+  white-space: nowrap;
+}

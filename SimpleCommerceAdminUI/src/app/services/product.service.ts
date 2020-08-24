@@ -56,4 +56,11 @@ export class ProductService {
   updateProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(this.urlProducts + '/' + product.id, product, {headers: ProductService.headers});
   }
+
+  deleteProductById(productId: number): Observable<any> {
+    return this.http.delete(this.urlProducts + '/' + productId, {
+      observe: 'response',
+      headers: ProductService.headers
+    });
+  }
 }

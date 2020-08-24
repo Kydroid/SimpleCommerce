@@ -60,6 +60,22 @@ export class ProductListComponent implements OnInit {
     this.searchProductsByTitlePaginate(searchProductsKeywords);
   }
 
+  confirmDeleteProduct(productToDelete: Product): void {
+    const confirmMessageDeleteProduct = `Are you sure to delete this product "${productToDelete.title}" ?`;
+    if (confirm(confirmMessageDeleteProduct)) {
+      this.deleteProduct(productToDelete);
+    }
+  }
+
+  deleteProduct(productToDelete: Product): void {
+    this._productService.deleteProductById(productToDelete.id)
+      .subscribe(responseProductToDelete => {
+        if (responseProductToDelete.status === 204) {
+          this.products.filter(product => product.id === productToDelete.id);
+        }
+      });
+  }
+
   changePage(pageNumber: number): void {
     this._currentPage = pageNumber;
     this.loadProducts();

@@ -34,47 +34,45 @@
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
-                     aria-describedby="dataTable_info" style="width: 100%;">
+              <table class="table table-bordered dataTable" id="dataTable">
                 <thead>
                 <tr role="row">
-                  <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                      style="width: 164.006px;">Ref
-                  </th>
-                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Position: activate to sort column ascending" style="width: 250.006px;">Title
-                  </th>
-                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Position: activate to sort column ascending" style="width: 250.006px;">Description
-                  </th>
-                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Office: activate to sort column ascending" style="width: 117.006px;">Stock Quantity
-                  </th>
-                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Salary: activate to sort column ascending" style="width: 100.006px;">Price
-                  </th>
+                  <th>Action</th>
+                  <th>Ref</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Stock Quantity</th>
+                  <th>Price</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                  <th rowspan="1" colspan="1">Ref</th>
-                  <th rowspan="1" colspan="1">Title</th>
-                  <th rowspan="1" colspan="1">Description</th>
-                  <th rowspan="1" colspan="1">Stock Quantity</th>
-                  <th rowspan="1" colspan="1">Price</th>
+                  <th>Action</th>
+                  <th>Ref</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Stock Quantity</th>
+                  <th>Price</th>
                 </tr>
                 </tfoot>
                 <tbody>
                 <tr *ngIf="!products.length">
-                  <td class="sorting_1 text-center" colspan="5">No product</td>
+                  <td class="sorting_1 text-center" colspan="6">No product</td>
                 </tr>
                 <tr *ngFor="let product of products" role="row" class="odd">
-                  <td class="sorting_1">
-                    <a routerLink="/product/{{product.id}}" class="btn btn-info btn-circle btn-sm">
+                  <td class="cell-fit-content">
+                    <a (click)="confirmDeleteProduct(product)" class="btn btn-danger btn-circle btn-sm mr-2"
+                       title="Delete product">
+                      <i class="fas fa-trash text-white"></i>
+                    </a>
+                    <a routerLink="/product/{{product.id}}" class="btn btn-info btn-circle btn-sm mr-2"
+                       title="Update product">
                       <i class="fas fa-pen"></i>
                     </a>
-                    #{{ product.id }} - {{ product.ref }}
+                    #{{ product.id }}
+                  </td>
+                  <td>
+                    {{ product.ref }}
                   </td>
                   <td>{{ product.title }}</td>
                   <td>{{ product.description }}</td>
