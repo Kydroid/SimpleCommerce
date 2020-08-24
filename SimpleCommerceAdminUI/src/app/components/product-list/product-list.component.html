@@ -70,7 +70,12 @@
                   <td class="sorting_1 text-center" colspan="5">No product</td>
                 </tr>
                 <tr *ngFor="let product of products" role="row" class="odd">
-                  <td class="sorting_1">#{{ product.id }} - {{ product.ref }}</td>
+                  <td class="sorting_1">
+                    <a routerLink="/product/{{product.id}}" class="btn btn-info btn-circle btn-sm">
+                      <i class="fas fa-pen"></i>
+                    </a>
+                    #{{ product.id }} - {{ product.ref }}
+                  </td>
                   <td>{{ product.title }}</td>
                   <td>{{ product.description }}</td>
                   <td>{{ product.stockQuantity }}</td>

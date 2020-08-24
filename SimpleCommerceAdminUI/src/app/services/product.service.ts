@@ -45,7 +45,15 @@ export class ProductService {
     });
   }
 
+  getProductById(productId: number): Observable<Product> {
+    return this.http.get<Product>(this.urlProducts + '/' + productId, {headers: ProductService.headers});
+  }
+
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.urlProducts, product, {headers: ProductService.headers});
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(this.urlProducts + '/' + product.id, product, {headers: ProductService.headers});
   }
 }

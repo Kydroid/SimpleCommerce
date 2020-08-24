@@ -5,6 +5,7 @@ import {ProductFormComponent} from './components/product-form/product-form.compo
 
 const routes: Routes = [
   {path: 'product', component: ProductFormComponent},
+  {path: 'product/:id', component: ProductFormComponent},
   {path: 'products', component: ProductListComponent}
 ];
 
