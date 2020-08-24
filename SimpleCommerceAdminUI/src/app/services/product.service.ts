@@ -44,4 +44,8 @@ export class ProductService {
       headers: ProductService.headers
     });
   }
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.urlProducts, product, {headers: ProductService.headers});
+  }
 }

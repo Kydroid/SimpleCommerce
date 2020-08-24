@@ -1,0 +1,13 @@
+.custom-select-sm {
+  height: auto;
+  background-color: #e9ecef;
+}
+
+select.input-group-text.custom-select,
+select.input-group-text.custom-select option {
+  font-weight: 700;
+}
+
+.card-img-box {
+  height: fit-content;
+}
