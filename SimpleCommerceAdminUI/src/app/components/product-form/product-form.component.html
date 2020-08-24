@@ -30,7 +30,6 @@
                           name="currency"
                           aria-controls="dataTable"
                           class="input-group-text custom-select custom-select-sm form-control form-control-sm">
-                    <option value="test">test</option>
                     <option *ngFor="let currencyOption of currencies"
                             [value]="currencyOption">{{ (0 | currency : currencyOption) | slice:0:1}}
                     </option>

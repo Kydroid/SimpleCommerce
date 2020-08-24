@@ -1,7 +1,7 @@
 package com.example.kydroid.catalog.domain.entities.product;
 
 enum Currency {
-    EUR("EUR");
+    EUR("EUR"), USD("USD");
 
     private String currencyCode;
 
