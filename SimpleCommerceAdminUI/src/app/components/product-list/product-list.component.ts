@@ -1,13 +1,15 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Product} from '../../entities/product';
 import {ProductService} from '../../services/product.service';
+import {ConfirmDialogService} from '../../services/confirm-dialog.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   static readonly PAGE_START = 1;
   private _products: Array<Product> = [];
   private _productsTotalCount = 0;
@@ -16,13 +18,20 @@ export class ProductListComponent implements OnInit {
   private _pageSize = 10;
   private _numberOfPages = ProductListComponent.PAGE_START;
 
+  private confirmDialogSubscription: Subscription;
   @ViewChild('searchProductsInput') searchProductsInput: ElementRef;
 
-  constructor(private _productService: ProductService) {
+  constructor(private _productService: ProductService, private confirmDialogService: ConfirmDialogService) {
   }
 
   ngOnInit(): void {
     this.loadAllProductsPaginate();
+  }
+
+  ngOnDestroy(): void {
+    if (this.confirmDialogSubscription) {
+      this.confirmDialogSubscription.unsubscribe();
+    }
   }
 
   private loadProducts(): void {
@@ -61,17 +70,20 @@ export class ProductListComponent implements OnInit {
   }
 
   confirmDeleteProduct(productToDelete: Product): void {
-    const confirmMessageDeleteProduct = `Are you sure to delete this product "${productToDelete.title}" ?`;
-    if (confirm(confirmMessageDeleteProduct)) {
-      this.deleteProduct(productToDelete);
-    }
+    const messageConfirmDeleteProduct = `Are you sure to delete this product "${productToDelete.title}" ?`;
+    this.confirmDialogSubscription = this.confirmDialogService.show('Confirmation', messageConfirmDeleteProduct)
+      .subscribe(resultConfirmDeleteProduct => {
+        if (resultConfirmDeleteProduct) {
+          this.deleteProduct(productToDelete);
+        }
+      });
   }
 
   deleteProduct(productToDelete: Product): void {
     this._productService.deleteProductById(productToDelete.id)
       .subscribe(responseProductToDelete => {
         if (responseProductToDelete.status === 204) {
-          this.products.filter(product => product.id === productToDelete.id);
+          this._products = this.products.filter(product => product.id !== productToDelete.id);
         }
       });
   }

@@ -1,0 +1,12 @@
+.confirmDialogModalCenterOpen {
+  display: block;
+}
+
+.confirmDialogModalCenterClose {
+  display: none;
+}
+
+.modal-content {
+  border-width: 5px;
+}
+

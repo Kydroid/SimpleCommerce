@@ -1,0 +1,25 @@
+<div *ngIf="confirmDialogService.isVisible" class="dialog-confirm-box">
+  <div class="dialog-confirm-box">
+    <div [ngClass]="{'confirmDialogModalCenterOpen show': confirmDialogService.isVisible}" class="modal fade"
+         id="confirmDialogModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="confirmDialogModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-3 border-info">
+          <div class="modal-header bg-info rounded-0 text-white">
+            <h5 class="modal-title" id="confirmDialogModalLongTitle">{{ confirmDialogService.title }}</h5>
+            <button (click)="close()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{ confirmDialogService.content }}
+          </div>
+          <div class="modal-footer border-info">
+            <button (click)="cancel()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button (click)="ok()" type="button" class="btn btn-primary">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

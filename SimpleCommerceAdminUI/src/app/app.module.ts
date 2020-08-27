@@ -8,13 +8,15 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {ProductListComponent} from './components/product-list/product-list.component';
 import {FormsModule} from '@angular/forms';
 import {ProductFormComponent} from './components/product-form/product-form.component';
+import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ProductListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
