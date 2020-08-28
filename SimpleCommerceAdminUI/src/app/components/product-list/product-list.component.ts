@@ -98,6 +98,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .subscribe(responseProductToDelete => {
           if (responseProductToDelete.status === 204) {
             this._products = this.products.filter(product => product.id !== productToDelete.id);
+            this.toastsService.addToast({type: 'success', message: 'Product deleted'});
           }
         },
         error => {

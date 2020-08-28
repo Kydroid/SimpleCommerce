@@ -59,6 +59,7 @@ export class ProductFormComponent implements OnInit {
       .subscribe(
         productCreated => {
           this._product = productCreated;
+          this.toastsService.addToast({type: 'success', message: 'Product added'});
         },
         error => {
           this.toastsService.addToast({type: 'error', message: error.error.message});
@@ -70,6 +71,7 @@ export class ProductFormComponent implements OnInit {
     this._productService.updateProduct(this._product)
       .subscribe(productUpdated => {
           this._product = productUpdated;
+          this.toastsService.addToast({type: 'success', message: 'Product updated'});
         },
         error => {
           this.toastsService.addToast({type: 'error', message: error.error.message});
