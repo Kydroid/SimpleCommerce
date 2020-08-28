@@ -10,6 +10,8 @@ import {FormsModule} from '@angular/forms';
 import {ProductFormComponent} from './components/product-form/product-form.component';
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
 import {ToastsComponent} from './components/toasts/toasts.component';
+import {CategoryListComponent} from './components/category-list/category-list.component';
+import {CategoryFormComponent} from './components/category-form/category-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {ToastsComponent} from './components/toasts/toasts.component';
     ProductListComponent,
     ProductFormComponent,
     ConfirmDialogComponent,
-    ToastsComponent
+    ToastsComponent,
+    CategoryListComponent,
+    CategoryFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,8 @@
+.table-responsive {
+  overflow-x: inherit;
+}
+
+.cell-fit-content {
+  width: 1px;
+  white-space: nowrap;
+}

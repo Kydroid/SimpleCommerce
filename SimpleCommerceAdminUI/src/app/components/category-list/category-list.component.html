@@ -1,0 +1,67 @@
+<div class="container-fluid">
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Category list</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered dataTable" id="dataTable">
+                <thead>
+                <tr role="row">
+                  <th>Action</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th>Action</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr *ngIf="!categories.length">
+                  <td class="sorting_1 text-center" colspan="6">No category</td>
+                </tr>
+                <tr *ngFor="let category of categories" role="row" class="odd">
+                  <td class="cell-fit-content">
+                    <a (click)="confirmDeleteCategory(category)" class="btn btn-danger btn-circle btn-sm mr-2"
+                       title="Delete category">
+                      <i class="fas fa-trash text-white"></i>
+                    </a>
+                    <a routerLink="/category/{{category.id}}" class="btn btn-info btn-circle btn-sm mr-2"
+                       title="Update category">
+                      <i class="fas fa-pen"></i>
+                    </a>
+                    #{{ category.id }}
+                  </td>
+                  <td>{{ category.title }}</td>
+                  <td>{{ category.description }}</td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-5">
+              <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                {{ categories.length }}
+                <span [ngPlural]="categories.length">
+                  <ng-template ngPluralCase="=0">category</ng-template>
+                  <ng-template ngPluralCase="other">categories</ng-template>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
