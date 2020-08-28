@@ -21,12 +21,12 @@ class UpdateCategoryImpl implements UpdateCategory {
     }
 
     @Override
-    public Category by(Category category) throws ResourceNotFoundException {
-        if (category == null || !existsCategory.byId(category.getId())) {
-            Integer categoryId = category != null
-                    ? category.getId() : null;
+    public Category by(Category categoryToUpdate) throws ResourceNotFoundException {
+        if (categoryToUpdate == null || !existsCategory.byId(categoryToUpdate.getId())) {
+            Integer categoryId = (categoryToUpdate != null)
+                    ? categoryToUpdate.getId() : null;
             throw new ResourceNotFoundException(Category.class.getSimpleName(), categoryId);
         }
-        return categoryRepository.saveAndFlush(category);
+        return categoryRepository.saveAndFlush(categoryToUpdate);
     }
 }

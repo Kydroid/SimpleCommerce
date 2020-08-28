@@ -64,9 +64,9 @@ public class CategoryController {
         return ResponseEntity.created(locationCategoryAdded).body(categoryAdded);
     }
 
-    @PutMapping("{categoryId]")
-    public ResponseEntity<Category> updateCategory(@RequestBody Category categoryToUpdate,
-                                                   @PathVariable("categoryId") Integer categoryId)
+    @PutMapping("{categoryId}")
+    public ResponseEntity<Category> updateCategory(@PathVariable("categoryId") Integer categoryId,
+                                                   @RequestBody Category categoryToUpdate)
             throws ResourceNotFoundException {
         categoryToUpdate.setId(categoryId);
         Category categoryUpdated = updateCategory.by(categoryToUpdate);

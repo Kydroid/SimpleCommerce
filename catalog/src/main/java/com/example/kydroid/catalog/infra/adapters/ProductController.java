@@ -88,6 +88,7 @@ public class ProductController {
     @PutMapping("{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable("productId") Integer productId,
                                                  @RequestBody Product productToUpdate) throws ResourceNotFoundException {
+        productToUpdate.setId(productId);
         Product productUpdated = updateProduct.by(productToUpdate);
         return ResponseEntity.ok(productUpdated);
     }
