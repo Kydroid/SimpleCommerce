@@ -3,6 +3,7 @@ import {Product} from '../../entities/product';
 import {ProductService} from '../../services/product.service';
 import {ConfirmDialogService} from '../../services/confirm-dialog.service';
 import {Subscription} from 'rxjs';
+import {ToastsService} from '../../services/toasts.service';
 
 @Component({
   selector: 'app-product-list',
@@ -21,7 +22,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private confirmDialogSubscription: Subscription;
   @ViewChild('searchProductsInput') searchProductsInput: ElementRef;
 
-  constructor(private _productService: ProductService, private confirmDialogService: ConfirmDialogService) {
+  constructor(private _productService: ProductService, private confirmDialogService: ConfirmDialogService,
+              private toastsService: ToastsService) {
   }
 
   ngOnInit(): void {
@@ -46,21 +48,29 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private loadAllProductsPaginate(): void {
     this._productService.getAllProductsPaginate(this.currentPage, this.pageSize)
       .subscribe(responseProductsFounded => {
-        this._products = responseProductsFounded.body;
-        this._productsTotalCount = Number(responseProductsFounded.headers.get('X-Total-Count')) || this._productsTotalCount;
-        this.paginateProductList();
-      });
+          this._products = responseProductsFounded.body;
+          this._productsTotalCount = Number(responseProductsFounded.headers.get('X-Total-Count')) || this._productsTotalCount;
+          this.paginateProductList();
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
+        }
+      );
   }
 
   private searchProductsByTitlePaginate(searchProductsKeywords: string): void {
     this._productService.getAllProductsByTitlePaginate(this.currentPage, this.pageSize, searchProductsKeywords)
       .subscribe(responseProductsFounded => {
-        this._products = responseProductsFounded.body;
-        if (responseProductsFounded.headers.get('X-Total-Count')) {
-          this._productsTotalCount = Number(responseProductsFounded.headers.get('X-Total-Count'));
+          this._products = responseProductsFounded.body;
+          if (responseProductsFounded.headers.get('X-Total-Count')) {
+            this._productsTotalCount = Number(responseProductsFounded.headers.get('X-Total-Count'));
+          }
+          this.paginateProductList();
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
         }
-        this.paginateProductList();
-      });
+      );
   }
 
   onSearchProductsChange(): void {
@@ -73,19 +83,27 @@ export class ProductListComponent implements OnInit, OnDestroy {
     const messageConfirmDeleteProduct = `Are you sure to delete this product "${productToDelete.title}" ?`;
     this.confirmDialogSubscription = this.confirmDialogService.show('Confirmation', messageConfirmDeleteProduct)
       .subscribe(resultConfirmDeleteProduct => {
-        if (resultConfirmDeleteProduct) {
-          this.deleteProduct(productToDelete);
+          if (resultConfirmDeleteProduct) {
+            this.deleteProduct(productToDelete);
+          }
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
         }
-      });
+      );
   }
 
   deleteProduct(productToDelete: Product): void {
     this._productService.deleteProductById(productToDelete.id)
       .subscribe(responseProductToDelete => {
-        if (responseProductToDelete.status === 204) {
-          this._products = this.products.filter(product => product.id !== productToDelete.id);
+          if (responseProductToDelete.status === 204) {
+            this._products = this.products.filter(product => product.id !== productToDelete.id);
+          }
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
         }
-      });
+      );
   }
 
   changePage(pageNumber: number): void {

@@ -9,6 +9,7 @@ import {ProductListComponent} from './components/product-list/product-list.compo
 import {FormsModule} from '@angular/forms';
 import {ProductFormComponent} from './components/product-form/product-form.component';
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
+import {ToastsComponent} from './components/toasts/toasts.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog
     NavbarComponent,
     ProductListComponent,
     ProductFormComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,

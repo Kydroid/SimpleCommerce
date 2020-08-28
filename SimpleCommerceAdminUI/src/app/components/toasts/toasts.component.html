@@ -1,0 +1,8 @@
+<div id="toasts-container" class="col-3 toasts">
+  <div *ngFor="let toast of toastsService.toasts; let index = index" class="alert"
+       [ngClass]="{'success':'alert-success', 'info':'alert-info',
+       'warning':'alert-warning', 'error':'alert-danger'}[toast.type]">
+    <a (click)="closeToastByIndex(index)" class="close" aria-label="close">&times;</a>
+    <strong>{{ toast.message }}</strong>
+  </div>
+</div>

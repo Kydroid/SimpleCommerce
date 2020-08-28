@@ -3,6 +3,7 @@ import {Product} from '../../entities/product';
 import {ProductService} from '../../services/product.service';
 import {Currency} from '../../entities/currency.enum';
 import {ActivatedRoute} from '@angular/router';
+import {ToastsService} from '../../services/toasts.service';
 
 @Component({
   selector: 'app-product-form',
@@ -13,7 +14,8 @@ export class ProductFormComponent implements OnInit {
   private _product: Product;
   currencies: string[] = Object.values(Currency);
 
-  constructor(private _productService: ProductService, private route: ActivatedRoute) {
+  constructor(private _productService: ProductService, private toastsService: ToastsService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -37,6 +39,9 @@ export class ProductFormComponent implements OnInit {
       .subscribe(
         productPersisted => {
           this._product = productPersisted;
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
         }
       );
   }
@@ -54,6 +59,9 @@ export class ProductFormComponent implements OnInit {
       .subscribe(
         productCreated => {
           this._product = productCreated;
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
         }
       );
   }
@@ -61,8 +69,12 @@ export class ProductFormComponent implements OnInit {
   updateProduct(): void {
     this._productService.updateProduct(this._product)
       .subscribe(productUpdated => {
-        this._product = productUpdated;
-      });
+          this._product = productUpdated;
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
+        }
+      );
   }
 
   get product(): Product {
