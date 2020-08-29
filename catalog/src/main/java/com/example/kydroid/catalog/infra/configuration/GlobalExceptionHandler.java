@@ -13,24 +13,28 @@ import javax.validation.ConstraintViolationException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Resource not found !!")
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
     @ExceptionHandler({ResourceNotFoundException.class})
-    public void handleResourceNotFoundException() {
+    public ResourceNotFoundException handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
+        return resourceNotFoundException;
     }
 
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Resource creation failed !")
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ResourceCreationFailedException.class})
-    public void handleResourceCreationFailedException() {
+    public ResourceCreationFailedException handleResourceCreationFailedException(ResourceCreationFailedException resourceCreationFailedException) {
+        return resourceCreationFailedException;
     }
 
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Resource validation failed !")
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ConstraintViolationException.class})
-    public void handleConstraintViolationException() {
+    public ConstraintViolationException handleConstraintViolationException(ConstraintViolationException constraintViolationException) {
+        return constraintViolationException;
     }
 
-    @ResponseStatus(code = HttpStatus.CONFLICT, reason = "Resource creation conflict !")
+    @ResponseStatus(code = HttpStatus.CONFLICT)
     @ExceptionHandler({ResourceCreationConflictException.class})
-    public void handleResourceCreationConflictException() {
+    public ResourceCreationConflictException handleResourceCreationConflictException(ResourceCreationConflictException resourceCreationConflictException) {
+        return resourceCreationConflictException;
     }
 
 }

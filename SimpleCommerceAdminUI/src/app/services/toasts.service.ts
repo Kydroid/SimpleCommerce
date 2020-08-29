@@ -17,10 +17,12 @@ export class ToastsService {
   }
 
   addToast(toast: Toast): void {
-    if (this._toasts.length > this.TOASTS_LIMIT) {
-      this._toasts.shift();
+    if (toast && toast.type && toast.message) {
+      if (this._toasts.length > this.TOASTS_LIMIT) {
+        this._toasts.shift();
+      }
+      this._toasts.push(toast);
     }
-    this._toasts.push(toast);
   }
 
   deleteToastByIndex(toastIndex: number): void {
