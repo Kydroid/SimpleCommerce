@@ -26,7 +26,7 @@ export class CategoryFormComponent implements OnInit {
 
   resetForm(): void {
     this.resetCategory();
-    this.router.navigate(['category']);
+    this.router.navigate(['/category']);
   }
 
   resetCategory(): void {
@@ -39,7 +39,7 @@ export class CategoryFormComponent implements OnInit {
           this._category = categoryPersisted;
         },
         error => {
-          this.router.navigate(['category']);
+          this.router.navigate(['/category']);
           this.toastsService.addToast({type: 'error', message: error.error.message});
         }
       );

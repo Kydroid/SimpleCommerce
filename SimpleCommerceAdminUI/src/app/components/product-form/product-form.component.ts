@@ -32,6 +32,7 @@ export class ProductFormComponent implements OnInit {
 
   resetForm(): void {
     this.resetProduct();
+    this.router.navigate(['/product']);
   }
 
   private getProductById(productId: number): void {
@@ -41,7 +42,7 @@ export class ProductFormComponent implements OnInit {
           this._product = productPersisted;
         },
         error => {
-          this.router.navigate(['product']);
+          this.router.navigate(['/product']);
           this.toastsService.addToast({type: 'error', message: error.error.message});
         }
       );
