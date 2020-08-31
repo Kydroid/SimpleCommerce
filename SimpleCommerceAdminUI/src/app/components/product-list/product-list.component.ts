@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private confirmDialogSubscription: Subscription;
   @ViewChild('searchProductsInput') searchProductsInput: ElementRef;
 
-  constructor(private _productService: ProductService, private confirmDialogService: ConfirmDialogService,
+  constructor(private productService: ProductService, private confirmDialogService: ConfirmDialogService,
               private toastsService: ToastsService) {
   }
 
@@ -46,7 +46,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private loadAllProductsPaginate(): void {
-    this._productService.getAllProductsPaginate(this.currentPage, this.pageSize)
+    this.productService.getAllProductsPaginate(this.currentPage, this.pageSize)
       .subscribe(responseProductsFounded => {
           this._products = responseProductsFounded.body;
           this._productsTotalCount = Number(responseProductsFounded.headers.get('X-Total-Count')) || this._productsTotalCount;
@@ -59,7 +59,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private searchProductsByTitlePaginate(searchProductsKeywords: string): void {
-    this._productService.getAllProductsByTitlePaginate(this.currentPage, this.pageSize, searchProductsKeywords)
+    this.productService.getAllProductsByTitlePaginate(this.currentPage, this.pageSize, searchProductsKeywords)
       .subscribe(responseProductsFounded => {
           this._products = responseProductsFounded.body;
           if (responseProductsFounded.headers.get('X-Total-Count')) {
@@ -94,7 +94,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   deleteProduct(productToDelete: Product): void {
-    this._productService.deleteProductById(productToDelete.id)
+    this.productService.deleteProductById(productToDelete.id)
       .subscribe(responseProductToDelete => {
           if (responseProductToDelete.status === 204) {
             this._products = this.products.filter(product => product.id !== productToDelete.id);

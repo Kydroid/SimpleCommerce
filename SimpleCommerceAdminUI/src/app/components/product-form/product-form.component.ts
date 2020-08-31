@@ -4,6 +4,8 @@ import {ProductService} from '../../services/product.service';
 import {Currency} from '../../entities/currency.enum';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastsService} from '../../services/toasts.service';
+import {Category} from '../../entities/category';
+import {CategoryService} from '../../services/category.service';
 
 @Component({
   selector: 'app-product-form',
@@ -12,13 +14,15 @@ import {ToastsService} from '../../services/toasts.service';
 })
 export class ProductFormComponent implements OnInit {
   private _product: Product;
+  private _categories: Category[];
   currencies: string[] = Object.values(Currency);
 
-  constructor(private _productService: ProductService, private toastsService: ToastsService,
+  constructor(private productService: ProductService, private categoryService: CategoryService, private toastsService: ToastsService,
               private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.loadCategories();
     this.resetProduct();
     const productId = this.route.snapshot.params.id;
     if (productId) {
@@ -27,7 +31,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   private resetProduct(): void {
-    this._product = {id: undefined, title: undefined, ref: undefined, money: {currency: Currency.eur}};
+    this._product = {id: undefined, title: undefined, ref: undefined, money: {currency: Currency.eur}, category: null};
   }
 
   resetForm(): void {
@@ -35,8 +39,19 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['/product']);
   }
 
+  loadCategories(): void {
+    this.categoryService.getAllCategories()
+      .subscribe(categoriesFounded => {
+          this._categories = categoriesFounded;
+        },
+        error => {
+          this.toastsService.addToast({type: 'error', message: error.error.message});
+        }
+      );
+  }
+
   private getProductById(productId: number): void {
-    this._productService.getProductById(productId)
+    this.productService.getProductById(productId)
       .subscribe(
         productPersisted => {
           this._product = productPersisted;
@@ -57,7 +72,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   addProduct(): void {
-    this._productService.addProduct(this._product)
+    this.productService.addProduct(this._product)
       .subscribe(
         productCreated => {
           this._product = productCreated;
@@ -70,7 +85,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   updateProduct(): void {
-    this._productService.updateProduct(this._product)
+    this.productService.updateProduct(this._product)
       .subscribe(productUpdated => {
           this._product = productUpdated;
           this.toastsService.addToast({type: 'success', message: 'Product updated'});
@@ -81,7 +96,15 @@ export class ProductFormComponent implements OnInit {
       );
   }
 
+  compareCategorySelect(categoryA: Category, categoryB: Category): boolean {
+    return categoryA && categoryB ? categoryA.id === categoryB.id : categoryA === categoryB;
+  }
+
   get product(): Product {
     return this._product;
+  }
+
+  get categories(): Category[] {
+    return this._categories;
   }
 }

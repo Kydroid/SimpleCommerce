@@ -41,6 +41,7 @@
                   <th>Ref</th>
                   <th>Title</th>
                   <th>Description</th>
+                  <th>Category</th>
                   <th>Stock Quantity</th>
                   <th>Price</th>
                 </tr>
@@ -51,6 +52,7 @@
                   <th>Ref</th>
                   <th>Title</th>
                   <th>Description</th>
+                  <th>Category</th>
                   <th>Stock Quantity</th>
                   <th>Price</th>
                 </tr>
@@ -76,6 +78,7 @@
                   </td>
                   <td>{{ product.title }}</td>
                   <td>{{ product.description }}</td>
+                  <td>{{ product.category.title }}</td>
                   <td>{{ product.stockQuantity }}</td>
                   <td>{{ product.money.amount | currency: product.money.currency }}</td>
                 </tr>

@@ -2,7 +2,6 @@ package com.example.kydroid.catalog.domain.entities.product;
 
 import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.common.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -21,7 +20,6 @@ public class Product extends BaseEntity {
     private Integer stockQuantity;
     @Embedded
     private Money money;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
