@@ -4,7 +4,7 @@ import React from "react";
 export class Header extends React.Component<any, any> {
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <nav id="navbar-top" className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container">
                     <a className="navbar-brand">Simple Commerce UI</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
