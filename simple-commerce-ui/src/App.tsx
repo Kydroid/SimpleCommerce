@@ -1,13 +1,10 @@
 import React from 'react';
+import {Header} from "./components/header/header";
 
 function App() {
   return (
       <div id="app" className="App container-fluid">
-          <header className="App-header">
-              <h1 className="text-center">
-                  Simple Commerce UI
-              </h1>
-          </header>
+          <Header/>
       </div>
   );
 }
