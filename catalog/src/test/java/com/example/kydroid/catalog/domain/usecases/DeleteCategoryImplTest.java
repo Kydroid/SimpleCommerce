@@ -2,6 +2,7 @@ package com.example.kydroid.catalog.domain.usecases;
 
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceNotFoundException;
 import com.example.kydroid.catalog.domain.ports.input.ExistsCategory;
+import com.example.kydroid.catalog.domain.ports.input.UpdateProduct;
 import com.example.kydroid.catalog.domain.ports.output.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,13 +12,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DeleteCategoryImplTest {
 
     @Mock
     private CategoryRepository categoryRepository;
+
+    @Mock
+    private UpdateProduct updateProduct;
 
     @Mock
     private ExistsCategory existsCategory;
@@ -27,9 +31,14 @@ class DeleteCategoryImplTest {
 
     @Test
     void deleteCategory_whenCategoryIdValid() throws ResourceNotFoundException {
+        Integer categoryId = 1;
+
         when(existsCategory.byId(anyInt()))
                 .thenReturn(true);
-        deleteCategoryImpl.byId(1);
+
+        deleteCategoryImpl.byId(categoryId);
+        verify(updateProduct, times(1)).removeCategoryRelationshipByCategoryId(categoryId);
+        verify(categoryRepository, times(1)).deleteById(categoryId);
     }
 
     @Test

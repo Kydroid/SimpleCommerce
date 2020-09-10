@@ -41,7 +41,8 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   confirmDeleteCategory(categoryToDelete: Category): void {
-    const messageConfirmDeleteCategory = `Are you sure to delete this category "${categoryToDelete.title}" ?`;
+    const messageConfirmDeleteCategory = `Are you sure to delete this category "${categoryToDelete.title}" ?
+    All products related to this category will be released.`;
     this.confirmDialogSubscription = this.confirmDialogService.show('Confirmation', messageConfirmDeleteCategory)
       .subscribe(resultConfirmDeleteCategory => {
           if (resultConfirmDeleteCategory) {
@@ -59,7 +60,11 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       .subscribe(responseCategoryToDelete => {
           if (responseCategoryToDelete.status === 204) {
             this._categories = this._categories.filter(category => category.id !== categoryToDelete.id);
-            this.toastsService.addToast({type: 'success', message: 'Category deleted'});
+            this.toastsService.addToast({
+                type: 'success',
+                message: 'Category deleted and all products related to this category have been released.'
+              }
+            );
           }
         },
         error => {
