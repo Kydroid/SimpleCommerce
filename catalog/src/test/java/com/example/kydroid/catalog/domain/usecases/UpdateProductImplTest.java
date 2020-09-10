@@ -1,5 +1,6 @@
 package com.example.kydroid.catalog.domain.usecases;
 
+import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceNotFoundException;
 import com.example.kydroid.catalog.domain.entities.product.Product;
 import com.example.kydroid.catalog.domain.ports.input.ExistsProduct;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UpdateProductImplTest {
@@ -49,4 +50,12 @@ class UpdateProductImplTest {
                 () -> updateProductImpl.by(null));
     }
 
+    @Test
+    void removeCategoryRelationshipProducts_whenProductsWithThisCategoryExists() {
+        Category category = new Category("cat1");
+        category.setId(1);
+
+        updateProductImpl.removeCategoryRelationshipByCategoryId(category.getId());
+        verify(productRepository, times(1)).updateProductsSetCategoryNullByCategoryId(category.getId());
+    }
 }

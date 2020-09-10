@@ -30,4 +30,9 @@ class UpdateProductImpl implements UpdateProduct {
 
         return productRepository.saveAndFlush(productToUpdate);
     }
+
+    @Override
+    public int removeCategoryRelationshipByCategoryId(Integer categoryId) {
+        return productRepository.updateProductsSetCategoryNullByCategoryId(categoryId);
+    }
 }

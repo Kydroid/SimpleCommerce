@@ -5,4 +5,6 @@ import com.example.kydroid.catalog.domain.entities.product.Product;
 
 public interface UpdateProduct {
     Product by(Product productToUpdate) throws ResourceNotFoundException;
+
+    int removeCategoryRelationshipByCategoryId(Integer categoryId);
 }
