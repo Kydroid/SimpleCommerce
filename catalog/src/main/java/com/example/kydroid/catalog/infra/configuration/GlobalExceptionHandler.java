@@ -3,6 +3,7 @@ package com.example.kydroid.catalog.infra.configuration;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceCreationConflictException;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceCreationFailedException;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,6 +24,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ResourceCreationFailedException.class})
     public ResourceCreationFailedException handleResourceCreationFailedException(ResourceCreationFailedException resourceCreationFailedException) {
         return resourceCreationFailedException;
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    public ResourceCreationFailedException handleDataIntegrityViolationException(DataIntegrityViolationException dataIntegrityViolationException) {
+        return new ResourceCreationFailedException(dataIntegrityViolationException.getCause().getMessage());
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)

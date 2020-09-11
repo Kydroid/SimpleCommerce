@@ -3,16 +3,14 @@ package com.example.kydroid.catalog.domain.entities.product;
 import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.common.BaseEntity;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
 public class Product extends BaseEntity {
 
+    @Column(unique = true)
     @NotBlank(message = "Reference product is mandatory !")
     private String ref;
     @NotBlank(message = "Title product is mandatory !")
