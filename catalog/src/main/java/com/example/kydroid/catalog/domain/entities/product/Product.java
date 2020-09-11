@@ -1,14 +1,14 @@
 package com.example.kydroid.catalog.domain.entities.product;
 
 import com.example.kydroid.catalog.domain.entities.category.Category;
-import com.example.kydroid.catalog.domain.entities.common.BaseEntity;
+import com.example.kydroid.catalog.domain.entities.common.BaseEntityAuditable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
-public class Product extends BaseEntity {
+public class Product extends BaseEntityAuditable {
 
     @Column(unique = true)
     @NotBlank(message = "Reference product is mandatory !")
