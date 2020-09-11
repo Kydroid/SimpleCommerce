@@ -80,7 +80,7 @@
                   <td>{{ product.description }}</td>
                   <td>{{ (product.category) ? product.category.title : "" }}</td>
                   <td>{{ product.stockQuantity }}</td>
-                  <td>{{ product.money.amount | currency: product.money.currency }}</td>
+                  <td>{{ product.money && (product.money.amount | currency: product.money.currency)}}</td>
                 </tr>
 
                 </tbody>
