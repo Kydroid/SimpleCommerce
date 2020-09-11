@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 
 @Entity
 public class Product extends BaseEntity {
@@ -29,6 +30,16 @@ public class Product extends BaseEntity {
     public Product(String ref, String title) {
         this.ref = ref;
         this.title = title;
+    }
+
+    public Product(String ref, String title, String description, Integer stockQuantity,
+                   BigDecimal amount, String currency, Category category) {
+        this.ref = ref;
+        this.title = title;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+        this.money = new Money(amount, Currency.valueOf(currency));
+        this.category = category;
     }
 
     public String getRef() {
