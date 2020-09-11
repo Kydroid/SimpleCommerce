@@ -1,4 +1,10 @@
 export enum Currency {
-  eur = 'EUR',
-  usd = 'USD'
+    EUR = '\u20AC',
+    USD = '\u0024'
+}
+
+export class CurrencySymbol {
+    static get(currencyKey: string): string {
+        return Currency[currencyKey as keyof typeof Currency];
+    }
 }
