@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Modifying
     @Query("UPDATE Product product set product.category = null WHERE product.category.id = :categoryId")
     int updateProductsSetCategoryNullByCategoryId(@Param("categoryId") Integer categoryId);
+
+    List<Product> findAllByOrderByLastModifiedDateDesc(Pageable pageable);
 }

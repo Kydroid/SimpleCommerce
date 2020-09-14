@@ -17,4 +17,6 @@ public interface FindProduct {
     List<Product> byTitleContainingIgnoreCase(Integer page, Integer pageSize, String title);
 
     Long byTitleContainingIgnoreCaseCount(String title);
+
+    List<Product> lastUpdatedLimitedTo(int limit);
 }

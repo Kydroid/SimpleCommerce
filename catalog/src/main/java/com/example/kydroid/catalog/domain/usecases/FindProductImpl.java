@@ -66,4 +66,13 @@ class FindProductImpl implements FindProduct {
     public Long byTitleContainingIgnoreCaseCount(String title) {
         return productRepository.countByTitleContainingIgnoreCase(title);
     }
+
+    @Override
+    public List<Product> lastUpdatedLimitedTo(int limit) {
+        if (limit < MIN_PAGE_SIZE || limit > MAX_PAGE_SIZE) {
+            throw new IllegalArgumentException(String.format("Limit argument must be between %s and %s", MIN_PAGE_SIZE, MAX_PAGE_SIZE));
+        }
+        Pageable pageable = PageRequest.of(0, limit);
+        return productRepository.findAllByOrderByLastModifiedDateDesc(pageable);
+    }
 }

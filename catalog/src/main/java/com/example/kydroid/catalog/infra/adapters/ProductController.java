@@ -51,7 +51,7 @@ public class ProductController {
                 .body(productsFounded);
     }
 
-    @GetMapping(params = "title")
+    @GetMapping(params = {"title"})
     public ResponseEntity<List<Product>> getAllProductsByTitlePaginate(@RequestParam(required = false, defaultValue = "0") Integer page,
                                                                        @RequestParam(required = false, value = "pagesize", defaultValue = "10") Integer pageSize,
                                                                        @RequestParam(required = true) String title) {
@@ -64,6 +64,16 @@ public class ProductController {
         return ResponseEntity.ok()
                 .headers(responseHeaders)
                 .body(productsFounded);
+    }
+
+    @GetMapping(params = {"sort", "limit"})
+    public ResponseEntity<List<Product>> getLastUpdatedProducts(@RequestParam(required = true) int limit,
+                                                                @RequestParam(required = true) String sort) {
+        if (sort == null || !sort.equalsIgnoreCase("lastModifiedDate")) {
+            return ResponseEntity.badRequest().header("Sorting products only possible by lastModifiedDate !").build();
+        }
+        List<Product> lastUpdatedProducts = findProduct.lastUpdatedLimitedTo(limit);
+        return ResponseEntity.ok(lastUpdatedProducts);
     }
 
     @GetMapping("{productId}")

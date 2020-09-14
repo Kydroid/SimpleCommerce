@@ -12,7 +12,7 @@ export class HomePage extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        Axios.get("http://localhost:8080/api/v1.0/products")
+        Axios.get("http://localhost:8080/api/v1.0/products?sort=lastModifiedDate&limit=3")
             .then(res => {
                 const products = res.data;
                 this.setState({
