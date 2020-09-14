@@ -1,12 +1,12 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
 
 export class Header extends React.Component<any, any> {
     render() {
         return (
             <nav id="navbar-top" className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container">
-                    <a className="navbar-brand">Simple Commerce UI</a>
+                    <Link to="/" className="navbar-brand">Simple Commerce UI</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -15,18 +15,18 @@ export class Header extends React.Component<any, any> {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item active">
-                                <a className="nav-link">Home
+                                <Link to="/" className="nav-link">Home
                                     <span className="sr-only">(current)</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link">About</a>
+                                <Link to="/" className="nav-link">About</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link">Services</a>
+                                <Link to="/" className="nav-link">Services</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link">Contact</a>
+                                <Link to="/" className="nav-link">Contact</Link>
                             </li>
                         </ul>
                     </div>

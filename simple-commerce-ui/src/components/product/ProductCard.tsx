@@ -1,12 +1,13 @@
 import React from "react";
 import {MoneyFormatted} from "./MoneyFormatted";
+import {Link} from "react-router-dom";
 
 export class ProductCard extends React.Component<any, any> {
     render() {
         return (
             <div className="col-lg-4 col-md-6 mb-4">
                 <div className="card h-100">
-                    <a><img className="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
+                    <Link to="#"><img className="card-img-top" src="http://placehold.it/700x400" alt=""/></Link>
                     <div className="card-body">
                         <h4 className="card-title">
                             <span>{this.props.product.title}</span>

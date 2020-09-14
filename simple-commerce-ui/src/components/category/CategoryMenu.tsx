@@ -1,6 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import {Category} from "../../entities/category";
+import {Link} from "react-router-dom";
 
 export class CategoryMenu extends React.Component<any, any> {
     constructor(props: any) {
@@ -27,9 +28,9 @@ export class CategoryMenu extends React.Component<any, any> {
                 <div className="list-group">
                     {
                         this.state.categories.map((category: Category) =>
-                            <a key={category.id} className="list-group-item">
+                            <Link to={"/categories/" + category.id} key={category.id} className="list-group-item">
                                 {category.title}
-                            </a>)
+                            </Link>)
                     }
                 </div>
             </aside>
