@@ -5,6 +5,7 @@ import {HomePage} from "./components/contents/HomePage";
 import {Footer} from "./components/asides/Footer";
 import {Header} from "./components/asides/Header";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {ProductsByCategoryPage} from "./components/contents/ProductsByCategoryPage";
 
 export class App extends React.Component<any, any> {
     render() {
@@ -16,9 +17,8 @@ export class App extends React.Component<any, any> {
                         <div className="row">
                             <CategoryMenu/>
                             <Switch>
-                                <Route path="/">
-                                    <HomePage/>
-                                </Route>
+                                <Route exact path="/" component={HomePage}/>
+                                <Route path="/categories/:categoryId" component={ProductsByCategoryPage}/>
                             </Switch>
                         </div>
                     </div>

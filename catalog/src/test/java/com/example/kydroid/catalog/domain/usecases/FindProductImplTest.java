@@ -154,4 +154,27 @@ class FindProductImplTest {
         findProductImpl.byTitleContainingIgnoreCaseCount(titleKeyword);
         verify(productRepository, times(1)).countByTitleContainingIgnoreCase(titleKeyword);
     }
+
+    @Test
+    void returnLastUpdatedProducts_whenFindLastUpdatedProducts() {
+        int limit = 6;
+        findProductImpl.lastUpdatedLimitedTo(limit);
+        Pageable pageable = PageRequest.of(0, limit);
+        verify(productRepository, times(1)).findAllByOrderByLastModifiedDateDesc(pageable);
+    }
+
+    @Test
+    void throwIllegalArgumentException_whenFindProductsByCategoryWithBadArgumentLimit() {
+        int limit = 1000000;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            findProductImpl.lastUpdatedLimitedTo(limit);
+        });
+    }
+
+    @Test
+    void returnProductsByCategory_whenFindProductsByCategoryIdValid() {
+        findProductImpl.byCategoryId(1);
+        verify(productRepository, times(1)).findAllByCategoryId(1);
+    }
 }

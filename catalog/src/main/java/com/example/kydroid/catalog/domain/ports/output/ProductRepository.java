@@ -21,4 +21,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     int updateProductsSetCategoryNullByCategoryId(@Param("categoryId") Integer categoryId);
 
     List<Product> findAllByOrderByLastModifiedDateDesc(Pageable pageable);
+
+    List<Product> findAllByCategoryId(Integer categoryId);
 }

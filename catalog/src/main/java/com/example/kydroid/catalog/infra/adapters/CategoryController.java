@@ -4,10 +4,8 @@ import com.example.kydroid.catalog.domain.entities.category.Category;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceCreationConflictException;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceCreationFailedException;
 import com.example.kydroid.catalog.domain.entities.exceptions.ResourceNotFoundException;
-import com.example.kydroid.catalog.domain.ports.input.CreateCategory;
-import com.example.kydroid.catalog.domain.ports.input.DeleteCategory;
-import com.example.kydroid.catalog.domain.ports.input.FindCategory;
-import com.example.kydroid.catalog.domain.ports.input.UpdateCategory;
+import com.example.kydroid.catalog.domain.entities.product.Product;
+import com.example.kydroid.catalog.domain.ports.input.*;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +25,16 @@ public class CategoryController {
     private final FindCategory findCategory;
     private final UpdateCategory updateCategory;
     private final DeleteCategory deleteCategory;
+    private final FindProduct findProduct;
 
     @Autowired
     public CategoryController(CreateCategory createCategory, FindCategory findCategory, UpdateCategory updateCategory,
-                              DeleteCategory deleteCategory) {
+                              DeleteCategory deleteCategory, FindProduct findProduct) {
         this.createCategory = createCategory;
         this.findCategory = findCategory;
         this.updateCategory = updateCategory;
         this.deleteCategory = deleteCategory;
+        this.findProduct = findProduct;
     }
 
     @GetMapping
@@ -79,4 +79,11 @@ public class CategoryController {
         deleteCategory.byId(categoryId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("{categoryId}/products")
+    public ResponseEntity<List<Product>> getAllProductsByCategoryId(@PathVariable("categoryId") Integer categoryId) {
+        List<Product> productListByCategory = findProduct.byCategoryId(categoryId);
+        return ResponseEntity.ok(productListByCategory);
+    }
+
 }

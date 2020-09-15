@@ -19,4 +19,6 @@ public interface FindProduct {
     Long byTitleContainingIgnoreCaseCount(String title);
 
     List<Product> lastUpdatedLimitedTo(int limit);
+
+    List<Product> byCategoryId(Integer categoryId);
 }

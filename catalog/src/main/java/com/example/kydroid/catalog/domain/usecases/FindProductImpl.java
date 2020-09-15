@@ -75,4 +75,9 @@ class FindProductImpl implements FindProduct {
         Pageable pageable = PageRequest.of(0, limit);
         return productRepository.findAllByOrderByLastModifiedDateDesc(pageable);
     }
+
+    @Override
+    public List<Product> byCategoryId(Integer categoryId) {
+        return productRepository.findAllByCategoryId(categoryId);
+    }
 }
