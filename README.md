@@ -1,6 +1,6 @@
 # SimpleCommerce
 Test multiples architectures, languages, frameworks and technologies :
-- Languages : Java, Javascript, SQL, HTML, CSS
+- Languages : Java, Typescript, SQL, HTML, CSS
 - Frameworks : Spring boot, Spring Webflux (soon), Hibernate JPA, Maven, JUnit, Angular, React, Redux (soon)
 - Technologies : Docker, Postgresql (soon), MongoDB (soon)
 
